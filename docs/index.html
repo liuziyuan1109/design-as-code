@@ -252,15 +252,14 @@
       color: #475569;
     }
     tbody tr:hover { background: #f8fafc; }
-    tbody td:first-child {
+    tbody td:first-child,
+    tbody td:nth-child(2) {
       text-align: left;
-      font-weight: 600;
       color: #1e293b;
     }
-    .best { font-weight: 700; color: #4f46e5; }
+    .best { font-weight: 700; }
     .second { text-decoration: underline; text-underline-offset: 2px; }
     .ours-row { background: rgba(79, 70, 229, 0.04); }
-    .ours-row td:first-child { color: #4f46e5; }
     .check { color: #22c55e; font-weight: 700; }
     .cross { color: #ef4444; font-weight: 700; }
 
@@ -469,14 +468,14 @@
         </thead>
         <tbody>
           <!-- Crello -->
-          <tr class="ours-row"><td rowspan="6"><strong>Crello</strong></td><td>DesignAsCode (Ours)</td><td class="best">0.9521</td><td class="second">0.0008</td><td class="best">0.0849</td><td class="best">0.6287</td><td class="best">74.06</td><td class="best">65.86</td><td class="best">63.67</td><td class="best">68.42</td></tr>
+          <tr class="ours-row"><td rowspan="6">Crello</td><td><strong>DesignAsCode (Ours)</strong></td><td class="best">0.9521</td><td class="second">0.0008</td><td class="best">0.0849</td><td class="best">0.6287</td><td class="best">74.06</td><td class="best">65.86</td><td class="best">63.67</td><td class="best">68.42</td></tr>
           <tr><td>DeepSeek-R1</td><td class="second">0.9224</td><td>0.0040</td><td class="second">0.0970</td><td>0.5478</td><td>71.08</td><td>37.10</td><td>57.47</td><td>61.03</td></tr>
           <tr><td>Qwen3-30B</td><td>0.8930</td><td>0.0057</td><td>0.0989</td><td>0.5386</td><td>68.22</td><td>35.12</td><td>55.60</td><td>57.98</td></tr>
           <tr><td>Qwen3-8B</td><td>0.9131</td><td>0.0031</td><td>0.1152</td><td>0.5196</td><td>57.62</td><td>34.25</td><td>41.14</td><td>49.89</td></tr>
           <tr><td>GPT-5</td><td>0.6931</td><td class="best">0.0005</td><td>0.1466</td><td>0.5669</td><td class="second">73.51</td><td>41.26</td><td class="second">57.19</td><td class="second">65.48</td></tr>
           <tr><td>OpenCOLE</td><td>—</td><td>—</td><td>—</td><td class="second">0.5864</td><td>48.57</td><td class="second">65.09</td><td>56.30</td><td>53.63</td></tr>
           <!-- Broad -->
-          <tr class="ours-row"><td rowspan="6"><strong>Broad</strong></td><td>DesignAsCode (Ours)</td><td class="best">0.9905</td><td class="second">0.0003</td><td class="best">0.0911</td><td class="best">0.6732</td><td class="second">68.63</td><td class="best">54.06</td><td class="best">55.46</td><td class="best">67.63</td></tr>
+          <tr class="ours-row"><td rowspan="6">Broad</td><td><strong>DesignAsCode (Ours)</strong></td><td class="best">0.9905</td><td class="second">0.0003</td><td class="best">0.0911</td><td class="best">0.6732</td><td class="second">68.63</td><td class="best">54.06</td><td class="best">55.46</td><td class="best">67.63</td></tr>
           <tr><td>DeepSeek-R1</td><td>0.9881</td><td>0.0026</td><td>0.1031</td><td>0.6205</td><td>60.08</td><td>34.08</td><td>42.88</td><td class="second">58.92</td></tr>
           <tr><td>Qwen3-30B</td><td>0.9714</td><td>0.0012</td><td class="second">0.0983</td><td>0.6213</td><td>60.84</td><td>29.18</td><td>41.04</td><td>57.88</td></tr>
           <tr><td>Qwen3-8B</td><td class="second">0.9892</td><td>0.0016</td><td>0.1338</td><td>0.5911</td><td>46.32</td><td>30.72</td><td>30.96</td><td>50.32</td></tr>
