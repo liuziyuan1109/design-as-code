@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DesignAsCode: Bridging Structural Editability and Visual Fidelity in Graphic Design Generation</title>
+  <meta name="description" content="DesignAsCode reimagines graphic design as HTML/CSS synthesis via a Plan-Implement-Reflect pipeline, achieving both structural editability and high visual fidelity." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Academicons + Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ===== Reset & Base ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== Layout ===== */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .container-wide { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      text-align: center;
+      padding: 80px 0 40px;
+      background: linear-gradient(180deg, #f0f4ff 0%, #fff 100%);
+    }
+    .hero .venue-badge {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 28px;
+      color: #0f172a;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Authors */
+    .authors {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px 18px;
+      margin-bottom: 12px;
+      font-size: 1.05rem;
+      color: #334155;
+    }
+    .authors span { white-space: nowrap; }
+    .authors sup { font-size: 0.7em; color: #7c3aed; }
+    .affiliations {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* Link buttons */
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1.5px solid #e2e8f0;
+      color: #334155;
+      background: #fff;
+    }
+    .links a:hover {
+      border-color: #4f46e5;
+      color: #4f46e5;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+      transform: translateY(-1px);
+    }
+    .links a i, .links a .ai { font-size: 1.15em; }
+
+    /* ===== Teaser ===== */
+    .teaser {
+      padding: 0 0 50px;
+      background: #fff;
+    }
+    .teaser img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    .teaser .caption {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 0.92rem;
+      color: #64748b;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ===== Sections ===== */
+    section {
+      padding: 60px 0;
+    }
+    section:nth-child(even) {
+      background: #f8fafc;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 32px;
+      color: #0f172a;
+    }
+    .section-title .icon {
+      display: inline-block;
+      margin-right: 10px;
+      color: #4f46e5;
+    }
+
+    /* ===== Abstract ===== */
+    .abstract-text {
+      max-width: 880px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: #475569;
+      text-align: justify;
+      line-height: 1.85;
+    }
+    .abstract-text strong {
+      color: #1e293b;
+      font-weight: 600;
+    }
+
+    /* ===== Highlights / Contributions ===== */
+    .highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1000px;
+      margin: 36px auto 0;
+    }
+    .highlight-card {
+      padding: 28px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      transition: box-shadow 0.2s;
+    }
+    .highlight-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    .highlight-card .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+    }
+    .highlight-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #0f172a;
+    }
+    .highlight-card p {
+      font-size: 0.92rem;
+      color: #64748b;
+      line-height: 1.65;
+    }
+
+    /* ===== Figures ===== */
+    .figure-block {
+      margin: 40px auto;
+      max-width: 1000px;
+    }
+    .figure-block.wide {
+      max-width: 1200px;
+    }
+    .figure-block img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .figure-block .fig-caption {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .figure-block .fig-caption strong {
+      color: #334155;
+    }
+
+    /* ===== Comparison Table ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 30px auto;
+      max-width: 1000px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    thead th {
+      background: #f1f5f9;
+      padding: 12px 16px;
+      text-align: center;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #e2e8f0;
+      white-space: nowrap;
+    }
+    tbody td {
+      padding: 10px 16px;
+      text-align: center;
+      border-bottom: 1px solid #f1f5f9;
+      color: #475569;
+    }
+    tbody tr:hover { background: #f8fafc; }
+    tbody td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .best { font-weight: 700; color: #4f46e5; }
+    .second { text-decoration: underline; text-underline-offset: 2px; }
+    .ours-row { background: rgba(79, 70, 229, 0.04); }
+    .ours-row td:first-child { color: #4f46e5; }
+    .check { color: #22c55e; font-weight: 700; }
+    .cross { color: #ef4444; font-weight: 700; }
+
+    /* ===== Gallery Grid ===== */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .gallery img:hover {
+      transform: scale(1.02);
+    }
+
+    /* ===== BibTeX ===== */
+    .bibtex-block {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 28px 32px;
+      position: relative;
+    }
+    .bibtex-block pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .bibtex-block .copy-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid #475569;
+      background: #334155;
+      color: #94a3b8;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .bibtex-block .copy-btn:hover {
+      background: #475569;
+      color: #e2e8f0;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      background: #0f172a;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+    footer a { color: #a5b4fc; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 50px 0 30px; }
+      section { padding: 40px 0; }
+      .highlights { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="container">
+    <div class="venue-badge">Under Review</div>
+    <h1>
+      <span class="highlight">DesignAsCode</span>: Bridging Structural Editability<br>
+      and Visual Fidelity in Graphic Design Generation
+    </h1>
+
+    <div class="authors">
+      <span>Ziyuan Liu<sup>1,*</sup></span>
+      <span>Shizhao Sun<sup>2,†</sup></span>
+      <span>Danqing Huang<sup>2</sup></span>
+      <span>Yingdong Shi<sup>3,*</sup></span>
+      <span>Meisheng Zhang<sup>1,*</sup></span>
+      <span>Ji Li<sup>2</sup></span>
+      <span>Jingsong Yu<sup>1</sup></span>
+      <span>Jiang Bian<sup>2</sup></span>
+    </div>
+    <div class="affiliations">
+      <sup>1</sup> Peking University &nbsp;&nbsp; <sup>2</sup> Microsoft &nbsp;&nbsp; <sup>3</sup> ShanghaiTech University<br/>
+      <span style="font-size:0.82rem;"><sup>*</sup> Intern at Microsoft &nbsp;&nbsp; <sup>†</sup> Corresponding author: shizsu@microsoft.com</span>
+    </div>
+
+    <div class="links">
+      <a href="https://arxiv.org/" target="_blank">
+        <i class="ai ai-arxiv"></i> Paper
+      </a>
+      <a href="https://github.com/" target="_blank">
+        <i class="fab fa-github"></i> Code
+      </a>
+      <a href="https://huggingface.co/Tony1109/DesignAsCode-planner" target="_blank">
+        <span style="font-size:1.1em;">🤗</span> Model
+      </a>
+      <a href="https://huggingface.co/datasets/Tony1109/crello-image-library" target="_blank">
+        <i class="fas fa-database"></i> Dataset
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== TEASER ==================== -->
+<div class="teaser">
+  <div class="container-wide">
+    <img src="static/images/teaser.png" alt="DesignAsCode teaser showing diverse generated designs" />
+    <p class="caption">
+      <strong>Generation results from DesignAsCode.</strong> Our method achieves superior visual fidelity across various design types (e.g., banner, flyer, menu, and resume). By utilizing HTML/CSS as the backend representation, it supports rich visual effects and ensures full editability for image, text, layout, color, and font attributes.
+    </p>
+  </div>
+</div>
+
+<!-- ==================== ABSTRACT ==================== -->
+<section id="abstract">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">📄</span>Abstract</h2>
+    <p class="abstract-text">
+      Graphic design generation demands a delicate balance between high visual fidelity and fine-grained structural editability. However, existing approaches typically bifurcate into either non-editable raster image synthesis or abstract layout generation devoid of visual content. Recent combinations of these two approaches attempt to bridge this gap but often suffer from rigid composition schemas and unresolvable visual dissonances (e.g., text-background conflicts) due to their inexpressive representation and open-loop nature. To address these challenges, we propose <strong>DesignAsCode</strong>, a novel framework that reimagines graphic design as a programmatic synthesis task using HTML/CSS. Specifically, we introduce a <strong>Plan-Implement-Reflect</strong> pipeline, incorporating a <strong>Semantic Planner</strong> to construct dynamic, variable-depth element hierarchies and a <strong>Visual-Aware Reflection</strong> mechanism that iteratively optimizes the code to rectify rendering artifacts. Extensive experiments demonstrate that DesignAsCode significantly outperforms state-of-the-art baselines in both structural validity and aesthetic quality. Furthermore, our code-native representation unlocks advanced capabilities, including automatic layout retargeting, complex document generation (e.g., resumes), and CSS-based animation.
+    </p>
+
+    <div class="highlights">
+      <div class="highlight-card">
+        <div class="card-icon">💻</div>
+        <h3>Design-as-Code Paradigm</h3>
+        <p>Pioneer the use of HTML/CSS as the unified representation for graphic design, enabling professional-grade styling, native editability, and direct browser rendering.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="card-icon">🔄</div>
+        <h3>Plan-Implement-Reflect Pipeline</h3>
+        <p>Integrate semantic planning with visual-aware reflection to reason over complex hierarchies and autonomously rectify rendering dissonances.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="card-icon">🏆</div>
+        <h3>State-of-the-Art Performance</h3>
+        <p>Significantly outperform baselines in both objective and subjective evaluations, while unlocking advanced capabilities like layout retargeting and CSS animation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MORE RESULTS ==================== -->
+<section id="gallery">
+  <div class="container-wide">
+    <h2 class="section-title"><span class="icon">🎨</span>More Results</h2>
+    <div class="figure-block wide">
+      <img src="static/images/more_result.png" alt="More design results 1" />
+    </div>
+    <div class="figure-block wide">
+      <img src="static/images/more_result_2.png" alt="More design results 2" />
+    </div>
+    <div class="figure-block wide">
+      <img src="static/images/more_result_3.png" alt="More design results 3" />
+    </div>
+  </div>
+</section>
+
+<!-- ==================== METHOD ==================== -->
+<section id="method">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">⚙️</span>Method</h2>
+    <div class="figure-block wide">
+      <img src="static/images/pipeline.png" alt="DesignAsCode Pipeline" />
+      <p class="fig-caption">
+        <strong>Overall framework of DesignAsCode.</strong> Given a user prompt, the Semantic Planner generates a structured design plan (layout reasoning, element groupings, image prompts, and text specs). The Implementation module acquires visual assets and synthesizes an initial HTML/CSS draft. Finally, Visual-Aware Reflection iteratively renders, optimizes, and refines the code to resolve visual dissonances.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESULTS ==================== -->
+<section id="results">
+  <div class="container-wide">
+    <h2 class="section-title"><span class="icon">📊</span>Experimental Results</h2>
+
+    <!-- Quantitative Results Table -->
+    <div class="table-wrapper" style="max-width: 1100px;">
+      <table>
+        <thead>
+          <tr>
+            <th rowspan="2">Dataset</th>
+            <th rowspan="2">Method</th>
+            <th colspan="4">Objective Metrics</th>
+            <th colspan="4">Subjective Metrics</th>
+          </tr>
+          <tr>
+            <th>Val ↑</th><th>Ali ↓</th><th>Rea ↓</th><th>Clip ↑</th>
+            <th>Text ↑</th><th>Image ↑</th><th>Layout ↑</th><th>Color ↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Crello -->
+          <tr class="ours-row"><td rowspan="6"><strong>Crello</strong></td><td>DesignAsCode (Ours)</td><td class="best">0.9521</td><td class="second">0.0008</td><td class="best">0.0849</td><td class="best">0.6287</td><td class="best">74.06</td><td class="best">65.86</td><td class="best">63.67</td><td class="best">68.42</td></tr>
+          <tr><td>DeepSeek-R1</td><td class="second">0.9224</td><td>0.0040</td><td class="second">0.0970</td><td>0.5478</td><td>71.08</td><td>37.10</td><td>57.47</td><td>61.03</td></tr>
+          <tr><td>Qwen3-30B</td><td>0.8930</td><td>0.0057</td><td>0.0989</td><td>0.5386</td><td>68.22</td><td>35.12</td><td>55.60</td><td>57.98</td></tr>
+          <tr><td>Qwen3-8B</td><td>0.9131</td><td>0.0031</td><td>0.1152</td><td>0.5196</td><td>57.62</td><td>34.25</td><td>41.14</td><td>49.89</td></tr>
+          <tr><td>GPT-5</td><td>0.6931</td><td class="best">0.0005</td><td>0.1466</td><td>0.5669</td><td class="second">73.51</td><td>41.26</td><td class="second">57.19</td><td class="second">65.48</td></tr>
+          <tr><td>OpenCOLE</td><td>—</td><td>—</td><td>—</td><td class="second">0.5864</td><td>48.57</td><td class="second">65.09</td><td>56.30</td><td>53.63</td></tr>
+          <!-- Broad -->
+          <tr class="ours-row"><td rowspan="6"><strong>Broad</strong></td><td>DesignAsCode (Ours)</td><td class="best">0.9905</td><td class="second">0.0003</td><td class="best">0.0911</td><td class="best">0.6732</td><td class="second">68.63</td><td class="best">54.06</td><td class="best">55.46</td><td class="best">67.63</td></tr>
+          <tr><td>DeepSeek-R1</td><td>0.9881</td><td>0.0026</td><td>0.1031</td><td>0.6205</td><td>60.08</td><td>34.08</td><td>42.88</td><td class="second">58.92</td></tr>
+          <tr><td>Qwen3-30B</td><td>0.9714</td><td>0.0012</td><td class="second">0.0983</td><td>0.6213</td><td>60.84</td><td>29.18</td><td>41.04</td><td>57.88</td></tr>
+          <tr><td>Qwen3-8B</td><td class="second">0.9892</td><td>0.0016</td><td>0.1338</td><td>0.5911</td><td>46.32</td><td>30.72</td><td>30.96</td><td>50.32</td></tr>
+          <tr><td>GPT-5.1</td><td>0.9458</td><td class="best">0.0001</td><td>0.1219</td><td class="second">0.6226</td><td class="best">75.96</td><td>44.56</td><td class="second">50.76</td><td>57.80</td></tr>
+          <tr><td>OpenCOLE</td><td>—</td><td>—</td><td>—</td><td>0.6108</td><td>46.44</td><td class="second">53.68</td><td>48.64</td><td>56.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Qualitative -->
+    <div class="figure-block wide">
+      <img src="static/images/quality_result.png" alt="Qualitative results" />
+      <p class="fig-caption">
+        <strong>Qualitative comparison.</strong> The leftmost column displays the input text prompts. The top three rows show results on the Crello test set, while the bottom three rows show results on the Broad test set.
+      </p>
+    </div>
+
+    <div class="figure-block wide">
+      <img src="static/images/quality_result_2.png" alt="More qualitative results" />
+      <p class="fig-caption">
+        <strong>More qualitative comparisons</strong> between DesignAsCode and baselines across both benchmarks.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABLATION ==================== -->
+<section id="ablation">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🔬</span>Ablation Studies</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Val ↑</th><th>Ali ↓</th><th>Rea ↓</th><th>Clip ↑</th>
+            <th>Text ↑</th><th>Image ↑</th><th>Layout ↑</th><th>Color ↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="ours-row"><td>DesignAsCode (Full)</td><td>0.9521</td><td>0.0008</td><td>0.0849</td><td>0.6287</td><td>74.06</td><td>65.86</td><td>63.67</td><td>68.42</td></tr>
+          <tr><td>w/o HTML Representation</td><td>0.9559</td><td>0.0030</td><td>0.0878</td><td>0.6210</td><td>55.35</td><td>64.24</td><td>58.07</td><td>53.91</td></tr>
+          <tr><td>w/o Semantic Planner</td><td>0.9389</td><td>0.0004</td><td>0.0950</td><td>0.5896</td><td>67.62</td><td>61.14</td><td>52.78</td><td>64.25</td></tr>
+          <tr><td>w/o Visual Reflection</td><td>0.9357</td><td>0.0025</td><td>0.0942</td><td>0.6299</td><td>64.21</td><td>62.64</td><td>58.97</td><td>60.99</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== APPLICATIONS ==================== -->
+<section id="applications">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">🚀</span>Applications</h2>
+
+    <div class="figure-block">
+      <img src="static/images/editing_reframe.png" alt="Structural editing and layout retargeting" />
+      <p class="fig-caption">
+        <strong>Structural Editing and Layout Retargeting.</strong> (Top) Global theme switching via CSS variables. (Bottom) Content-aware layout retargeting, where elements automatically reflow to fit new aspect ratios.
+      </p>
+    </div>
+
+    <div class="figure-block">
+      <img src="static/images/complex_layouts.png" alt="Complex information layouts" />
+      <p class="fig-caption">
+        <strong>Complex Information Layouts.</strong> A <em>Calendar</em> demonstrating precise grid alignment, a <em>Business Timeline</em> visualizing a multi-step process, and a <em>Menu</em> maintaining rigorous price-list alignment.
+      </p>
+    </div>
+
+    <div class="figure-block">
+      <img src="static/images/extensions.png" alt="Code-native extensions" />
+      <p class="fig-caption">
+        <strong>Code-Native Extensions.</strong> (Top) CSS keyframe animation for dynamic poster effects. (Bottom) Perfect multilingual text rendering (English, Chinese, Japanese, Korean) via font-family switching.
+      </p>
+    </div>
+
+    <div class="figure-block">
+      <img src="static/images/html_effect.png" alt="HTML/CSS decorative effects" />
+      <p class="fig-caption">
+        <strong>Rich Visual Effects via HTML/CSS.</strong> (a) Blend modes for artistic compositing. (b) Glow effects via CSS. (c) Shadows and gradients for text emphasis.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BIBTEX ==================== -->
+<section id="citation">
+  <div class="container">
+    <h2 class="section-title"><span class="icon">📚</span>Citation</h2>
+    <div class="bibtex-block">
+      <button class="copy-btn" onclick="copyBibtex()"><i class="fas fa-copy"></i> Copy</button>
+      <pre><code>@article{liu2025designascode,
+  title     = {DesignAsCode: Bridging Structural Editability and 
+               Visual Fidelity in Graphic Design Generation},
+  author    = {Liu, Ziyuan and Sun, Shizhao and Huang, Danqing 
+               and Shi, Yingdong and Zhang, Meisheng and Li, Ji 
+               and Yu, Jingsong and Bian, Jiang},
+  journal   = {arXiv preprint},
+  year      = {2025}
+}</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <p>DesignAsCode &copy; 2026</p>
+    <p style="margin-top:6px; font-size:0.8rem;">
+      Template inspired by <a href="https://nerfies.github.io/" target="_blank">Nerfies</a>.
+    </p>
+  </div>
+</footer>
+
+<script>
+function copyBibtex() {
+  const code = document.querySelector('.bibtex-block code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Copy'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
