@@ -39,7 +39,7 @@ git clone https://huggingface.co/Tony1109/DesignAsCode-planner models/planner
 # Image retrieval library + FAISS index (~19 GB)
 python -c "from huggingface_hub import snapshot_download; snapshot_download('Tony1109/crello-image-library', repo_type='dataset', local_dir='retrieval_assets')"
 cd retrieval_assets
-tar -xzf crello_pngs.tar.gz
+tar -xzf crello_pngs.tar.gz   # may take a relatively long time (many small files)
 mv crello_pngs ../data/image_library
 mv elements_local.index ../data/
 mv id_mapping_local.json ../data/
