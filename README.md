@@ -64,14 +64,14 @@ export OPENAI_API_KEY='sk-your-api-key-here'
 
 ```bash
 python infer.py \
-  --prompt "A modern promotional poster for a coffee shop grand opening" \
-  --output output/coffee_shop
+  --prompt "A promotional poster for International Day of Forests" \
+  --output output/forest_day
 ```
 
 Output is saved to the specified directory:
 
 ```
-output/coffee_shop/
+output/forest_day/
 ├── layout_prompt.txt         # Design plan + retrieved image URLs
 ├── generated_images/         # Retrieved images for each layer
 ├── init_result.html          # Initial HTML design
