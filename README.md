@@ -134,16 +134,55 @@ The pipeline calls three OpenAI models:
 
 ## Training the Planner
 
-To train your own Semantic Planner:
+Download the training data (~19k distilled samples from Crello):
+
+```bash
+huggingface-cli download Tony1109/DesignAsCode-training-data --repo-type dataset --local-dir training_data
+```
+
+Train on a single GPU:
+
+```bash
+cd code
+python train_planner.py \
+  --model Qwen/Qwen3-8B \
+  --data ../training_data/dataset.jsonl \
+  --output-dir ../models/planner_ckpt
+```
+
+Multi-GPU with DeepSpeed (optional):
+
+```bash
+deepspeed --num_gpus=4 train_planner.py \
+  --model Qwen/Qwen3-8B \
+  --data ../training_data/dataset.jsonl \
+  --output-dir ../models/planner_ckpt \
+  --deepspeed ds_config.json
+```
+
+The final model is saved to `<output-dir>/final/`.
+
+### All Arguments
+
+| Argument | Default | Description |
+|---|---|---|
+| `--model` | `Qwen/Qwen3-8B` | Base model name or path |
+| `--data` | *(required)* | Path to training JSONL |
+| `--output-dir` | *(required)* | Checkpoint output directory |
+| `--epochs` | `2` | Number of training epochs |
+| `--batch-size` | `1` | Per-device batch size |
+| `--gradient-accumulation-steps` | `2` | Gradient accumulation steps |
+| `--learning-rate` | `5e-5` | Learning rate |
+| `--max-length` | `6144` | Maximum token length |
+| `--save-steps` | `500` | Save checkpoint every N steps |
+| `--deepspeed` | `None` | Path to DeepSpeed config (optional) |
+
+### Resources
 
 - **Base model:** [Qwen/Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B)
 - **Our fine-tuned model:** [Tony1109/DesignAsCode-planner](https://huggingface.co/Tony1109/DesignAsCode-planner)
-- **Training data:** [Tony1109/DesignAsCode-training-data](https://huggingface.co/datasets/Tony1109/DesignAsCode-training-data) (19,479 samples distilled from Crello; we used ~10k for training)
-- **Image retrieval library:** [Tony1109/crello-image-library](https://huggingface.co/datasets/Tony1109/crello-image-library) (FAISS index + 228k element images)
-
-Training format: **Input** = `prompt` → **Output** = `layout_thought` + `grouping` + `image_generator` + `generate_text`
-
-See the [training data repo](https://huggingface.co/datasets/Tony1109/DesignAsCode-training-data) for field details.
+- **Training data:** [Tony1109/DesignAsCode-training-data](https://huggingface.co/datasets/Tony1109/DesignAsCode-training-data)
+- **Training format:** **Input** = `prompt` → **Output** = `layout_thought` + `grouping` + `image_generator` + `generate_text`
 
 ---
 
