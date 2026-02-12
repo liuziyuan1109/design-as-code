@@ -95,7 +95,7 @@ python inference_pipeline.py \
   --output-dir ../output/test_results
 ```
 
-This processes all 546 samples in `test.jsonl` through the complete pipeline. For the Broad test set (500 samples), use `--test-data ../data/broad_test.jsonl`.
+This processes all 546 samples in `test.jsonl` through the complete pipeline. We also present the Broad test set, which is utilized to assess the performance of models trained on the private Broad dataset.
 
 ### Distributed / Sharded Runs
 
