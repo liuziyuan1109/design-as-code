@@ -32,11 +32,11 @@ playwright install chromium
 
 ```bash
 # Planner model (~16 GB)
+conda install git-lfs -c conda-forge -y
 git lfs install
 git clone https://huggingface.co/Tony1109/DesignAsCode-planner models/planner
 
 # Image retrieval library + FAISS index (~19 GB)
-pip install huggingface_hub
 huggingface-cli download Tony1109/crello-image-library --repo-type dataset --local-dir retrieval_assets
 cd retrieval_assets
 tar -xzf crello_pngs.tar.gz
