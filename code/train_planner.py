@@ -55,6 +55,21 @@ The grouping must appear right after the layout_thought, and will guide the subs
     "capitalize": false,
     "line_height": 1.0,
     "letter_spacing": 0.9849796295166016
+  },
+  {
+    "layer_id": 7,
+    "type": "TextElement",
+    "width": 322.0,
+    "height": 67.89791107177734,
+    "opacity": 1.0,
+    "text": " Cleanup",
+    "font": "Abril Fatface",
+    "font_size": 68.0,
+    "text_align": "center",
+    "angle": 0.0,
+    "capitalize": false,
+    "line_height": 1.0,
+    "letter_spacing": 0.0
   }
 ]
 </generate_text>

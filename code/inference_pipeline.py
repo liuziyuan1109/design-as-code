@@ -18,17 +18,7 @@ import shutil
 import gc
 import argparse
 
-def batch_test(client, user_prompt, example_id, tokenizer, model, retrieve_model, index, id_mapping, fail_log, success_log, output_dir):
-    
-    start_time = time.time()
-
-    folder = os.path.join(output_dir, example_id)
-
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-
-
-    # Input text
-    system_prompt = '''You are a master of 2D graphic design. You are skilled in planning 2D design, adept at providing design concepts and layout thought, and capable of generating corresponding grouping plans, image prompts and text content based on the layout thought.  
+SYSTEM_PROMPT = '''You are a master of 2D graphic design. You are skilled in planning 2D design, adept at providing design concepts and layout thought, and capable of generating corresponding grouping plans, image prompts and text content based on the layout thought.  
 
     Workflow:  
 
@@ -92,9 +82,18 @@ def batch_test(client, user_prompt, example_id, tokenizer, model, retrieve_model
     - <layout_thought>...</layout_thought>, <grouping>...</grouping>, <image_generator>...</image_generator>, and <generate_text>...</generate_text> are mandatory and must appear exactly once.  
     '''
 
+def batch_test(client, user_prompt, example_id, tokenizer, model, retrieve_model, index, id_mapping, fail_log, success_log, output_dir):
+    
+    start_time = time.time()
+
+    folder = os.path.join(output_dir, example_id)
+
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+
+
     print(f"Starting to generate a design plan: {user_prompt}")
     prompt = [
-        {"role": "system", "content": system_prompt},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": user_prompt}
     ]
     prompt = tokenizer.apply_chat_template(prompt, tokenize=False, add_generation_prompt=True)

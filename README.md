@@ -150,7 +150,7 @@ python train_planner.py \
   --output-dir ../models/planner_ckpt
 ```
 
-Multi-GPU with DeepSpeed (optional):
+Multi-GPU with DeepSpeed (optional — requires `pip install deepspeed`):
 
 ```bash
 deepspeed --num_gpus=4 train_planner.py \
