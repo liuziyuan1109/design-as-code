@@ -152,7 +152,3 @@ See the [training data repo](https://huggingface.co/datasets/Tony1109/DesignAsCo
   year      = {2025}
 }
 ```
-
-## License
-
-Apache License 2.0. See [LICENSE](LICENSE).
