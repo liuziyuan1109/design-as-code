@@ -2,13 +2,80 @@
 
 **DesignAsCode** generates editable graphic designs (HTML/CSS) from natural-language prompts via a Plan → Implement → Reflection pipeline.
 
-> **First time?** Follow the [Quick Start Guide](QUICKSTART.md) to set up the environment, download the model & data, and run your first design.
+---
+
+## Quick Start
+
+### 1. Clone & Set Up Environment
+
+```bash
+git clone https://github.com/liuziyuan1109/design-as-code.git
+cd design-as-code
+
+conda create -n designascode python=3.10 -y
+conda activate designascode
+pip install -r requirements.txt
+playwright install chromium
+```
+
+> **Note:** GPU inference requires CUDA 11.8+ and ≥24 GB VRAM.
+
+### 2. Download Model & Data
+
+```bash
+# Planner model (~16 GB)
+git lfs install
+git clone https://huggingface.co/Tony1109/DesignAsCode-planner models/planner
+
+# Image retrieval library + FAISS index (~19 GB)
+pip install huggingface_hub
+huggingface-cli download Tony1109/crello-image-library --repo-type dataset --local-dir retrieval_assets
+cd retrieval_assets
+tar -xzf crello_pngs.tar.gz
+mv crello_pngs ../data/image_library
+mv elements_local.index ../data/
+mv id_mapping_local.json ../data/
+cd .. && rm -rf retrieval_assets
+```
+
+### 3. Set OpenAI API Key
+
+The pipeline calls three OpenAI models — your key must have access to all of them:
+
+| Model | Purpose |
+|---|---|
+| `gpt-5` | HTML/CSS generation and layout refinement |
+| `gpt-4o` | Image quality analysis |
+| `gpt-image-1` | Image generation and editing |
+
+```bash
+export OPENAI_API_KEY='sk-your-api-key-here'
+```
+
+### 4. Run Inference
+
+```bash
+python infer.py \
+  --prompt "A modern promotional poster for a coffee shop grand opening" \
+  --output output/coffee_shop
+```
+
+Output is saved to the specified directory:
+
+```
+output/coffee_shop/
+├── planner_output.txt        # Design plan from planner model
+├── generated_images/         # Retrieved images for each layer
+├── init_result.html          # Initial HTML design
+├── after_image_refine.html   # After image refinement
+└── refine_*.html             # Final result after layout refinement
+```
 
 ---
 
 ## Batch Evaluation
 
-After completing the [Quick Start](QUICKSTART.md) setup, you can run the full pipeline on the test set:
+After completing the Quick Start setup above, you can run the full pipeline on the test set:
 
 ```bash
 export OPENAI_API_KEY='sk-...'

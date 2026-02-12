@@ -300,4 +300,4 @@ for i, example in enumerate(data):
 
 ---
 
-For more information, see [README.md](README.md) and [QUICKSTART.md](QUICKSTART.md).
+For more information, see [README.md](README.md).
