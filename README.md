@@ -82,7 +82,7 @@ output/forest_day/
 
 ---
 
-## Batch Evaluation
+## Batch Inference
 
 After completing the Quick Start setup above, you can run the full pipeline on the test set:
 
