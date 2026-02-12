@@ -87,17 +87,32 @@ def single_inference(client, user_prompt, tokenizer, model, retrieve_model, inde
     {
         "layer_id": 6,
         "type": "TextElement",
-        "width": 302.18,
-        "height": 31.33,
+        "width": 302.1794738769531,
+        "height": 31.327075958251953,
         "opacity": 1.0,
         "text": "Big Fall Volunteer",
         "font": "Abril Fatface",
-        "font_size": 31.4,
+        "font_size": 31.39527130126953,
         "text_align": "center",
         "angle": 0.0,
         "capitalize": false,
         "line_height": 1.0,
-        "letter_spacing": 0.98
+        "letter_spacing": 0.9849796295166016
+    },
+    {
+        "layer_id": 7,
+        "type": "TextElement",
+        "width": 322.0,
+        "height": 67.89791107177734,
+        "opacity": 1.0,
+        "text": " Cleanup",
+        "font": "Abril Fatface",
+        "font_size": 68.0,
+        "text_align": "center",
+        "angle": 0.0,
+        "capitalize": false,
+        "line_height": 1.0,
+        "letter_spacing": 0.0
     }
     ]
     </generate_text>
