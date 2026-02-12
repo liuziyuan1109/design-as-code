@@ -177,6 +177,6 @@ Required output format (JSON only, no extra text):
     return True
 
 if __name__ == "__main__":
-    client = get_api_client(model="gpt-4o")
+    client = get_api_client()
     print(f"Using model: {client.default_model}")
     print("Image refinement module loaded successfully.")

@@ -130,7 +130,7 @@ def refine(client, html_image_path, html_path, folder, times=1, deployment_chat=
     return is_all_refine_successful
 
 if __name__ == "__main__":
-    client = get_api_client(model="gpt-4o")
+    client = get_api_client()
     refine(      
         client=client,
         html_image_path="pipelines/g_retrieve_A flyer advertising fresh seafood with prices and images._2025-09-26_03-12-19/init_result.png",
