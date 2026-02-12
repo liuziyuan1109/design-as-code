@@ -276,7 +276,7 @@ if __name__ == "__main__":
     parser.add_argument("--num-shards", type=int, default=1, help="Total number of shards")
     args = parser.parse_args()
 
-    client = get_api_client(model="gpt-5")
+    client = get_api_client()
 
     model_path = args.model_path
     print(f"Loading planner model from {model_path}...")

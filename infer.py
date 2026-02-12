@@ -320,7 +320,7 @@ Examples:
 
     # Initialize OpenAI client
     print(f"🔑 Initializing OpenAI client...")
-    client = get_api_client(model=LLM_MODEL)
+    client = get_api_client()
 
     # Load planner model
     print(f"🧠 Loading planner model: {args.model}")

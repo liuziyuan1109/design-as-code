@@ -2,13 +2,12 @@ import os
 from openai import OpenAI
 
 
-def get_api_client(api_key: str = None, model: str = "gpt-4o") -> OpenAI:
+def get_api_client(api_key: str = None) -> OpenAI:
     """
     Initialize and return an OpenAI API client.
     
     Args:
         api_key: OpenAI API key. If not provided, will try to read from OPENAI_API_KEY environment variable.
-        model: The model to use (e.g., "gpt-4o", "gpt-4-turbo", "gpt-3.5-turbo")
     
     Returns:
         OpenAI client instance
@@ -29,9 +28,6 @@ def get_api_client(api_key: str = None, model: str = "gpt-4o") -> OpenAI:
     # Initialize OpenAI client
     client = OpenAI(api_key=api_key)
     
-    # Store model name for reference
-    client.default_model = model
-    
     return client
 
 
@@ -39,15 +35,14 @@ if __name__ == "__main__":
     # Example usage - requires OPENAI_API_KEY environment variable to be set
     # or pass api_key directly: get_api_client(api_key="sk-...")
     
-    client = get_api_client(model="gpt-4o")
+    client = get_api_client()
     
     print("Testing OpenAI API client...")
-    print(f"Using model: {client.default_model}")
     
     # Test API call
     try:
         response = client.chat.completions.create(
-            model=client.default_model,
+            model="gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": "Hello, how are you?"},
