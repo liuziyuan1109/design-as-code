@@ -11,6 +11,10 @@ The framework uses a **Plan → Implement → Reflection** pipeline: a fine-tune
   <a href="https://huggingface.co/datasets/Tony1109/DesignAsCode-training-data"><img src="https://img.shields.io/badge/🤗-Dataset-orange?style=for-the-badge" alt="Dataset"></a>
 </p>
 
+<p align="center">
+  <img src="docs/static/images/teaser.png" alt="DesignAsCode teaser showing diverse generated designs" width="100%">
+</p>
+
 ---
 
 ## Quick Start
