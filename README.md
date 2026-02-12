@@ -37,7 +37,7 @@ git lfs install
 git clone https://huggingface.co/Tony1109/DesignAsCode-planner models/planner
 
 # Image retrieval library + FAISS index (~19 GB)
-huggingface-cli download Tony1109/crello-image-library --repo-type dataset --local-dir retrieval_assets
+python -c "from huggingface_hub import snapshot_download; snapshot_download('Tony1109/crello-image-library', repo_type='dataset', local_dir='retrieval_assets')"
 cd retrieval_assets
 tar -xzf crello_pngs.tar.gz
 mv crello_pngs ../data/image_library
