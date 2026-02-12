@@ -1,0 +1,129 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb
+
+# Data and Outputs
+outputs/
+output/
+runs/
+
+# Data folder (large files downloaded separately)
+data/image_library/
+data/image_library_test/
+*.log
+.tensorboard/
+wandb/
+
+# Models and Checkpoints (large files)
+*.pth
+*.pt
+*.safetensors
+checkpoints/
+ckpt/
+models/
+
+# FAISS indexes (large files)
+*.index
+*.faiss
+id_mapping*.json
+elements_local.*
+
+# Image files (usually large)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+!docs/static/images/*.png
+generated_images/
+
+# API and Configuration (sensitive)
+.env
+.env.local
+config.yml
+config.yaml
+blob_config.yaml
+api_config.json
+secrets/
+credentials/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+.cache/
+tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+.project
+.pydevproject
+.settings/
+
+# Test results
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Documentation
+site/
+docs/_build/
+
+# Paper source (not for distribution)
+ICML_2026/
+ICML_2026.zip
+
+# Miscellaneous
+.ipython_history
+.env.example
