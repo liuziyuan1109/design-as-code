@@ -146,10 +146,7 @@ def single_inference(client, user_prompt, tokenizer, model, retrieve_model, inde
 
     generated_text = tokenizer.decode(output_ids[0][input_length:], skip_special_tokens=True)
 
-    # Save raw planner output
-    with open(os.path.join(output_dir, "planner_output.txt"), "w", encoding="utf-8") as f:
-        f.write(generated_text)
-    print("✅ Design plan generated and saved to planner_output.txt")
+    print("✅ Design plan generated")
 
     del inputs, output_ids
     torch.cuda.empty_cache()
@@ -281,8 +278,8 @@ def single_inference(client, user_prompt, tokenizer, model, retrieve_model, inde
     print(f"✅ Pipeline complete! ({elapsed:.1f} min)")
     print(f"📂 Output directory: {output_dir}")
     print("   Key files:")
-    print(f"   - planner_output.txt    (design plan)")
-    print(f"   - init_result.html      (initial design)")
+    print(f"   - layout_prompt.txt       (design plan + retrieved image URLs)")
+    print(f"   - init_result.html        (initial design)")
     print(f"   - after_image_refine.html (after image refinement)")
     for f in sorted(os.listdir(output_dir)):
         if f.startswith("refine_") and f.endswith(".html"):

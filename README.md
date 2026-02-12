@@ -72,7 +72,7 @@ Output is saved to the specified directory:
 
 ```
 output/coffee_shop/
-├── planner_output.txt        # Design plan from planner model
+├── layout_prompt.txt         # Design plan + retrieved image URLs
 ├── generated_images/         # Retrieved images for each layer
 ├── init_result.html          # Initial HTML design
 ├── after_image_refine.html   # After image refinement
