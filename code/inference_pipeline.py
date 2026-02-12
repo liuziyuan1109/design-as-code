@@ -18,7 +18,7 @@ import shutil
 import gc
 import argparse
 
-def g_mix_test(client, user_prompt, example_id, tokenizer, model, retrieve_model, index, id_mapping, fail_log, success_log, output_dir):
+def batch_test(client, user_prompt, example_id, tokenizer, model, retrieve_model, index, id_mapping, fail_log, success_log, output_dir):
     
     start_time = time.time()
 
@@ -143,13 +143,8 @@ def g_mix_test(client, user_prompt, example_id, tokenizer, model, retrieve_model
 
     # Retrieve images
     image_generator_results = []
-    # retrieve_model = SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
     os.makedirs(os.path.join(folder, "generated_images"), exist_ok=True)
     IMG_ROOT = "data/image_library"
-    # Load FAISS index and ID mapping
-    # index = faiss.read_index("elements_local.index")
-    # with open("id_mapping_local.json", "r", encoding="utf-8") as f:
-    #     id_mapping = json.load(f)
     for item in tqdm(image_generator_list, desc="Retrieving images"):
         # User query
         query = item["layer_prompt"]
@@ -325,7 +320,7 @@ if __name__ == "__main__":
         with open(success_log, "r", encoding="utf-8") as f:
             successful_ids = set(line.strip() for line in f if line.strip())
         if id not in successful_ids:
-            g_mix_test(client, prompt, id, tokenizer, model, retrieve_model, index, id_mapping, fail_log=fail_log, success_log=success_log, output_dir=output_dir)
+            batch_test(client, prompt, id, tokenizer, model, retrieve_model, index, id_mapping, fail_log=fail_log, success_log=success_log, output_dir=output_dir)
             torch.cuda.empty_cache()
             gc.collect()
             with open(fail_log, "r", encoding="utf-8") as f:
