@@ -51,6 +51,7 @@ runs/
 # Data folder (large files downloaded separately)
 data/image_library/
 data/image_library_test/
+retrieval_assets/
 *.log
 .tensorboard/
 wandb/
@@ -119,10 +120,6 @@ dmypy.json
 # Documentation
 site/
 docs/_build/
-
-# Paper source (not for distribution)
-ICML_2026/
-ICML_2026.zip
 
 # Miscellaneous
 .ipython_history
