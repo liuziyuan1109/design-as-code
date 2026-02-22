@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://liuziyuan1109.github.io/design-as-code/sitemap.xml
