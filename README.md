@@ -6,7 +6,7 @@ The framework uses a **Plan → Implement → Reflection** pipeline: a fine-tune
 
 <p align="center">
   <a href="https://liuziyuan1109.github.io/design-as-code/"><img src="https://img.shields.io/badge/🌐-Project%20Page-green?style=for-the-badge" alt="Project Page"></a>
-  <a href="https://liuziyuan1109.github.io/design-as-code/"><img src="https://img.shields.io/badge/📄-Paper-blue?style=for-the-badge" alt="Paper"></a>
+  <a href="https://arxiv.org/abs/2602.17690"><img src="https://img.shields.io/badge/📄-Paper-blue?style=for-the-badge" alt="Paper"></a>
   <a href="https://huggingface.co/Tony1109/DesignAsCode-planner"><img src="https://img.shields.io/badge/🤗-Model-orange?style=for-the-badge" alt="Model"></a>
   <a href="https://huggingface.co/datasets/Tony1109/DesignAsCode-training-data"><img src="https://img.shields.io/badge/🤗-Dataset-orange?style=for-the-badge" alt="Dataset"></a>
 </p>
