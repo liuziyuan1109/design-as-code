@@ -194,13 +194,14 @@ The final model is saved to `<output-dir>/final/`.
 ## Citation
 
 ```bibtex
-@article{liu2025designascode,
+@article{liu2026designascode,
   title     = {DesignAsCode: Bridging Structural Editability and 
                Visual Fidelity in Graphic Design Generation},
   author    = {Liu, Ziyuan and Sun, Shizhao and Huang, Danqing 
                and Shi, Yingdong and Zhang, Meisheng and Li, Ji 
                and Yu, Jingsong and Bian, Jiang},
-  journal   = {arXiv preprint},
-  year      = {2025}
+  journal   = {arXiv preprint arXiv:2602.17690},
+  year      = {2026},
+  url       = {https://arxiv.org/abs/2602.17690}
 }
 ```
