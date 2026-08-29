@@ -2,7 +2,7 @@
 
 **DesignAsCode** is a framework that generates **fully editable** graphic designs from natural-language prompts. Unlike image generation models that produce flat raster images, or layout generation methods that output abstract bounding boxes, DesignAsCode represents designs as **HTML/CSS code** — preserving both high visual fidelity and fine-grained structural editability. This code-native representation also unlocks advanced capabilities such as automatic layout retargeting, complex document generation, and CSS-based animation.
 
-The framework uses a **Plan → Implement → Reflection** pipeline: a fine-tuned Semantic Planner constructs dynamic element hierarchies, an Implementation module translates the plan into executable HTML/CSS with generated image assets, and a Visual-Aware Reflection mechanism iteratively refines the output to fix rendering artifacts.
+The framework uses a **Plan → Implement → Reflection** pipeline: a fine-tuned Semantic Planner constructs dynamic element hierarchies, an Implementation module translates the plan into executable HTML/CSS with generated image assets, and a Visual-Aware Reflection mechanism refines the output to fix rendering artifacts.
 
 <p align="center">
   <a href="https://liuziyuan1109.github.io/design-as-code/"><img src="https://img.shields.io/badge/🌐-Project%20Page-green?style=for-the-badge" alt="Project Page"></a>
